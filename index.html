@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Queen 👑</title>
+
+<style>
+html,body{
+margin:0;
+padding:0;
+height:100%;
+overflow:hidden;
+font-family:Segoe UI,sans-serif;
+color:white;
+}
+
+/* ===== GALAXY BACKGROUND ===== */
+body{
+background:linear-gradient(-45deg,#0f0c29,#302b63,#24243e,#1a1a40);
+background-size:400% 400%;
+animation:galaxy 18s ease infinite;
+}
+@keyframes galaxy{
+0%{background-position:0% 50%;}
+50%{background-position:100% 50%;}
+100%{background-position:0% 50%;}
+}
+
+/* ===== STARS ===== */
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+border-radius:50%;
+opacity:0.8;
+animation:twinkle 2s infinite alternate;
+}
+@keyframes twinkle{
+from{opacity:0.2;}
+to{opacity:1;}
+}
+
+/* ===== CENTER HEART ===== */
+.center{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+}
+.heart{
+font-size:100px;
+cursor:pointer;
+animation:pulse 1.5s infinite;
+}
+@keyframes pulse{
+50%{transform:scale(1.2);}
+}
+
+/* ===== GLASS MESSAGE (GHOZ) ===== */
+.paper{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+width:90%;
+max-width:600px;
+padding:35px;
+border-radius:25px;
+max-height:80vh;
+overflow:auto;
+z-index:10;
+
+/* glass effect */
+background:rgba(255,255,255,0.12);
+backdrop-filter:blur(18px);
+-webkit-backdrop-filter:blur(18px);
+
+/* glowing border */
+border:2px solid rgba(255,255,255,0.4);
+animation:borderGlow 3s infinite alternate;
+
+/* glow shadow */
+box-shadow:0 0 30px rgba(255,105,180,0.6);
+}
+
+@keyframes borderGlow{
+0%{box-shadow:0 0 20px #ff4da6;}
+100%{box-shadow:0 0 40px #8a2be2;}
+}
+
+.paper h2{
+text-align:center;
+margin-bottom:20px;
+text-shadow:0 0 15px #ff66cc;
+}
+
+/* ===== RING ===== */
+.ring{
+font-size:65px;
+cursor:pointer;
+margin-top:25px;
+text-align:center;
+animation:ringPop 1s ease forwards, ringGlow 2s infinite alternate;
+}
+@keyframes ringPop{
+0%{transform:scale(0);opacity:0;}
+100%{transform:scale(1);opacity:1;}
+}
+@keyframes ringGlow{
+0%{text-shadow:0 0 10px gold;}
+100%{text-shadow:0 0 25px orange;}
+}
+
+/* ===== POPUP ===== */
+.popup{
+display:none;
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:rgba(255,255,255,0.95);
+color:black;
+padding:35px;
+border-radius:20px;
+z-index:20;
+text-align:center;
+box-shadow:0 0 40px rgba(0,0,0,0.5);
+}
+.popup h2{
+margin-bottom:20px;
+}
+.popup button{
+margin:10px;
+padding:12px 18px;
+border:none;
+border-radius:10px;
+cursor:pointer;
+background:#ff4da6;
+color:white;
+font-size:16px;
+transition:0.3s;
+}
+.popup button:hover{
+transform:scale(1.1);
+}
+
+/* ===== FIREWORKS ===== */
+.firework{
+position:fixed;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1.5s ease-out forwards;
+}
+@keyframes explode{
+0%{transform:translate(0,0);opacity:1;}
+100%{transform:translate(var(--x),var(--y));opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" src="happybirthday.mp3"></audio>
+
+<div class="center">
+<div class="heart" onclick="openLetter()">❤️</div>
+</div>
+
+<div class="paper" id="letter">
+<h2>Happy Birthday My Queen 👑</h2>
+
+<p>
+Lyouma machi ghir nhar tzaditi fih… lyouma tzadat fih a7san haja w9a3at lia f 7yati.<br><br>
+
+Ana kan7med lah 3la nhar li dkhltih fih l7yati, hit b sbabek wlit kanchof dnya b tari9a zwina w kan7ess b aman w 7ob li 3omri ma 7essit bih 9bel.<br><br>
+
+Kol 3am w nti a9rab lia, kol 3am w ana kan7ebbik aktar mn 9bel.
+Distance mabinatna ghir katzidni nt2aked belli nti howa lmosta9bal diali w l7ob dial 7yati.<br><br>
+
+Kanbghik b7al daba w aktar mn daba, w incha2lah n3aydo had nhar snen w snen w nti 7daya 💍❤️<br><br>
+
+Enjoy your day princess, rah l3alam kaml khaso y3ref belli lyouma tzadat fih wa7da mn a7la bnat ❤️✨<br><br>
+
+— Yours forever 💌
+</p>
+
+<div class="ring" onclick="showPopup()">💍</div>
+
+</div>
+
+<div class="popup" id="popup">
+<h2>Will you be mine forever? 💍</h2>
+<button onclick="sayYes()">YES ❤️</button>
+<button onclick="sayYes()">Forever 😍</button>
+</div>
+
+<script>
+
+/* Stars generator */
+for(let i=0;i<150;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*window.innerHeight+"px";
+star.style.left=Math.random()*window.innerWidth+"px";
+document.body.appendChild(star);
+}
+
+function openLetter(){
+document.getElementById("letter").style.display="block";
+document.getElementById("music").play();
+}
+
+function showPopup(){
+document.getElementById("popup").style.display="block";
+}
+
+function sayYes(){
+document.getElementById("popup").style.display="none";
+fireworks();
+}
+
+function fireworks(){
+for(let i=0;i<8;i++){
+let cx=Math.random()*window.innerWidth;
+let cy=Math.random()*window.innerHeight/2;
+for(let j=0;j<40;j++){
+let f=document.createElement("div");
+f.className="firework";
+f.style.left=cx+"px";
+f.style.top=cy+"px";
+let angle=Math.random()*2*Math.PI;
+let radius=120+Math.random()*50;
+f.style.setProperty('--x',Math.cos(angle)*radius+'px');
+f.style.setProperty('--y',Math.sin(angle)*radius+'px');
+f.style.background=`hsl(${Math.random()*360},100%,50%)`;
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1500);
+}
+}
+}
+</script>
+
+</body>
+</html>
